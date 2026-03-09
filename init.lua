@@ -394,6 +394,32 @@ require('lazy').setup({
     end,
   },
 
+  -- Folding (nvim-ufo)
+  {
+    'kevinhwang91/nvim-ufo',
+    lazy = false,
+    dependencies = { 'kevinhwang91/promise-async' },
+    config = function()
+      vim.o.foldcolumn = '1'
+      vim.o.foldlevel = 99
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
+
+      local ufo = require('ufo')
+      ufo.setup {
+        provider_selector = function()
+          return { 'treesitter', 'indent' }
+        end,
+      }
+
+      map('n', 'zR', ufo.openAllFolds, { desc = 'Open all folds' })
+      map('n', 'zM', ufo.closeAllFolds, { desc = 'Close all folds' })
+      map('n', 'zr', ufo.openFoldsExceptKinds, { desc = 'Open folds except kinds' })
+      map('n', 'zm', ufo.closeFoldsWith, { desc = 'Close folds with' })
+      map('n', 'zK', function() ufo.peekFoldedLinesUnderCursor() end, { desc = 'Peek folded lines' })
+    end,
+  },
+
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
