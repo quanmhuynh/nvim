@@ -442,6 +442,19 @@ require('lazy').setup({
     end,
   },
 
+  -- Document preview (typst, latex, markdown, etc.)
+  {
+    'barrettruth/preview.nvim',
+    lazy = false,
+    init = function()
+      vim.g.preview = {
+        typst = true,
+        latex = true,
+        markdown = true,
+      }
+    end,
+  },
+
 }, {
   defaults = { lazy = false },
   ui = {
