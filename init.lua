@@ -504,6 +504,9 @@ require('lazy').setup({
     },
   },
 
+  -- Fuzzy finder used by mux project pickers (<C-b>f / <C-b>F)
+  { 'ibhagwan/fzf-lua', opts = {} },
+
   -- Diffview (side-by-side git diffs)
   {
     'sindrets/diffview.nvim',
@@ -538,5 +541,12 @@ require('lazy').setup({
     },
   },
 })
+
+-- [[ mux: tmux-style multiplexer (from harivansh-afk/nix) ]]
+-- <C-b> prefix bindings; full project switching needs the ~/.local/bin/mux launcher
+-- Only activate inside a mux-launched server (MUX=1), so plain `nvim` stays vanilla.
+if vim.env.MUX == '1' then
+  require('mux').setup()
+end
 
 -- vim: ts=2 sts=2 sw=2 et
