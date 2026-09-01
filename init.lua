@@ -172,6 +172,7 @@ require('lazy').setup({
         { '<leader>t', group = '[T]oggle' },
         { '<leader>b', group = '[B]uffer' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>g', group = '[G]it diff' },
         { '<leader>q', group = '[Q]uit/session' },
         { 'gr', group = 'LSP Actions', mode = { 'n' } },
       },
@@ -440,6 +441,17 @@ require('lazy').setup({
         end,
       })
     end,
+  },
+
+  -- Diffview (side-by-side git diffs)
+  {
+    'sindrets/diffview.nvim',
+    keys = {
+      { '<leader>gd', '<cmd>DiffviewOpen<cr>', desc = '[G]it [D]iff (working tree)' },
+      { '<leader>gm', '<cmd>DiffviewOpen origin/main...HEAD<cr>', desc = '[G]it diff vs [M]ain' },
+      { '<leader>gh', '<cmd>DiffviewFileHistory %<cr>', desc = '[G]it file [H]istory' },
+      { '<leader>gq', '<cmd>DiffviewClose<cr>', desc = '[G]it diff [Q]uit' },
+    },
   },
 
   -- Document preview (typst, latex, markdown, etc.)
