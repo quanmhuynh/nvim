@@ -71,6 +71,9 @@ map('v', '>', '>gv')
 -- Quit
 map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
 
+-- Toggle line wrap
+map('n', '<leader>tw', '<cmd>set wrap!<cr>', { desc = '[T]oggle line [W]rap' })
+
 -- [[ Autocommands ]]
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking text',
