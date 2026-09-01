@@ -432,8 +432,14 @@ require('lazy').setup({
     build = ':TSUpdate',
     branch = 'main',
     config = function()
+      vim.g.ts_install_compiler = '/usr/bin/gcc'
       local parsers = { 'bash', 'c', 'css', 'diff', 'html', 'javascript', 'json', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'python', 'query', 'tsx', 'typescript', 'vim', 'vimdoc', 'yaml' }
-      require('nvim-treesitter').install(parsers)
+      local missing = vim.tbl_filter(function(p)
+        return not vim.treesitter.language.add(p)
+      end, parsers)
+      if #missing > 0 then
+        require('nvim-treesitter').install(missing)
+      end
       vim.api.nvim_create_autocmd('FileType', {
         callback = function(args)
           local buf, filetype = args.buf, args.match
