@@ -176,6 +176,7 @@ require('lazy').setup({
         { '<leader>b', group = '[B]uffer' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
         { '<leader>g', group = '[G]it diff' },
+        { '<leader>o', group = '[O]bsidian' },
         { '<leader>q', group = '[Q]uit/session' },
         { 'gr', group = 'LSP Actions', mode = { 'n' } },
       },
@@ -444,6 +445,57 @@ require('lazy').setup({
         end,
       })
     end,
+  },
+
+  -- Obsidian
+  {
+    'obsidian-nvim/obsidian.nvim',
+    version = '*',
+    lazy = true,
+    ft = 'markdown',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = {
+      workspaces = {
+        { name = 'vault', path = '~/Projects/Obsidian Vault' },
+      },
+      daily_notes = {
+        folder = 'Daily Notes',
+        date_format = '%Y-%m-%d',
+      },
+      notes_subdir = nil,
+      new_notes_location = 'current_dir',
+      completion = {
+        nvim_cmp = false,
+        blink = true,
+        min_chars = 2,
+      },
+      templates = {
+        folder = 'Templates',
+      },
+      ui = {
+        enable = true,
+        checkboxes = {
+          order = { ' ', 'x' },
+          [' '] = { char = '󰄱', hl_group = 'ObsidianTodo' },
+          ['x'] = { char = '', hl_group = 'ObsidianDone' },
+        },
+      },
+      legacy_commands = false,
+    },
+    config = function(_, opts)
+      require('obsidian').setup(opts)
+      vim.o.conceallevel = 2
+    end,
+    keys = {
+      { '<leader>oo', '<cmd>Obsidian open<cr>', desc = 'Open in Obsidian' },
+      { '<leader>on', '<cmd>Obsidian new<cr>', desc = 'New note' },
+      { '<leader>od', '<cmd>Obsidian dailies<cr>', desc = 'Daily notes' },
+      { '<leader>os', '<cmd>Obsidian search<cr>', desc = 'Search vault' },
+      { '<leader>oq', '<cmd>Obsidian quick-switch<cr>', desc = 'Quick switch' },
+      { '<leader>ol', '<cmd>Obsidian links<cr>', desc = 'List links' },
+      { '<leader>ob', '<cmd>Obsidian backlinks<cr>', desc = 'Backlinks' },
+      { '<leader>ot', '<cmd>Obsidian tags<cr>', desc = 'Tags' },
+    },
   },
 
   -- Diffview (side-by-side git diffs)
